@@ -36,7 +36,7 @@ jobs:
           run: docker run --network=isolated --name quiz-db -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=quiz_pengupil -d mysql:5.7
 
         - name: db exec
-          run: docker exec quiz-db mysql -uroot -ppassword < db/quiz_pengupil.sql  
+          run: docker exec quiz-db mysql -h localhost -uroot -ppassword quiz_pengupil < /db/quiz_pengupil.sql
           
         - name: wait for selenium hub
           run: sh wait.sh
