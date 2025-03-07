@@ -1,49 +1,69 @@
-# FILE: loginTest.py
+import unittest, sys
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-import unittest
 
-class LoginTest(unittest.TestCase):
-
+class GoogleTestCase(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        # Configure Firefox for remote WebDriver
+        options = webdriver.FirefoxOptions()
+        options.add_argument('--ignore-certificate-errors')
+        options.add_argument('--ignore-ssl-errors')
+        server = 'http://localhost:4444'
+        
+        self.browser = webdriver.Remote(command_executor=server, options=options)
 
     def test_successful_login(self):
-        driver = self.driver
-        driver.get("http://localhost/login.php")
-        driver.find_element(By.ID, "username").send_keys("valid_username")
-        driver.find_element(By.ID, "InputPassword").send_keys("valid_password")
-        driver.find_element(By.NAME, "submit").click()
-        self.assertIn("index.php", driver.current_url)
+        # If a URL was passed via command line, use it; otherwise default
+        if len(sys.argv) > 1:
+            url = sys.argv[1]
+        else:
+            url = "http://localhost/login.php"
+
+        self.browser.get(url)
+        self.browser.find_element(By.ID, "username").send_keys("valid_username")
+        self.browser.find_element(By.ID, "InputPassword").send_keys("valid_password")
+        self.browser.find_element(By.NAME, "submit").click()
+        self.assertIn("index.php", self.browser.current_url)
 
     def test_empty_username_password(self):
-        driver = self.driver
-        driver.get("http://localhost/login.php")
-        driver.find_element(By.NAME, "submit").click()
-        error_message = driver.find_element(By.CLASS_NAME, "alert-danger").text
+        if len(sys.argv) > 1:
+            url = sys.argv[1]
+        else:
+            url = "http://localhost/login.php"
+
+        self.browser.get(url)
+        self.browser.find_element(By.NAME, "submit").click()
+        error_message = self.browser.find_element(By.CLASS_NAME, "alert-danger").text
         self.assertEqual(error_message, "Data tidak boleh kosong !!")
 
     def test_invalid_username(self):
-        driver = self.driver
-        driver.get("http://localhost/login.php")
-        driver.find_element(By.ID, "username").send_keys("invalid_username")
-        driver.find_element(By.ID, "InputPassword").send_keys("any_password")
-        driver.find_element(By.NAME, "submit").click()
-        error_message = driver.find_element(By.CLASS_NAME, "alert-danger").text
+        if len(sys.argv) > 1:
+            url = sys.argv[1]
+        else:
+            url = "http://localhost/login.php"
+
+        self.browser.get(url)
+        self.browser.find_element(By.ID, "username").send_keys("invalid_username")
+        self.browser.find_element(By.ID, "InputPassword").send_keys("any_password")
+        self.browser.find_element(By.NAME, "submit").click()
+        error_message = self.browser.find_element(By.CLASS_NAME, "alert-danger").text
         self.assertEqual(error_message, "Register User Gagal !!")
 
     def test_invalid_password(self):
-        driver = self.driver
-        driver.get("http://localhost/login.php")
-        driver.find_element(By.ID, "username").send_keys("valid_username")
-        driver.find_element(By.ID, "InputPassword").send_keys("invalid_password")
-        driver.find_element(By.NAME, "submit").click()
-        error_message = driver.find_element(By.CLASS_NAME, "alert-danger").text
+        if len(sys.argv) > 1:
+            url = sys.argv[1]
+        else:
+            url = "http://localhost/login.php"
+
+        self.browser.get(url)
+        self.browser.find_element(By.ID, "username").send_keys("valid_username")
+        self.browser.find_element(By.ID, "InputPassword").send_keys("invalid_password")
+        self.browser.find_element(By.NAME, "submit").click()
+        error_message = self.browser.find_element(By.CLASS_NAME, "alert-danger").text
         self.assertEqual(error_message, "Register User Gagal !!")
 
     def tearDown(self):
-        self.driver.close()
+        self.browser.quit()
 
-if __name__ == "__main__":
-    unittest.main()
+if __name__ == '__main__':
+    unittest.main(argv=['first-arg-is-ignored'], verbosity=2, warnings='ignore')

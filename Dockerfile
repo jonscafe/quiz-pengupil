@@ -1,11 +1,5 @@
-FROM php:7.4-apache
+FROM php:8.0-apache
+WORKDIR /var/www/html
 
-RUN apt-get update && apt-get install -y python3 python3-pip \
-    && ln -s /usr/bin/python3 /usr/bin/python
-
-RUN docker-php-ext-install mysqli
-RUN apt-get update && apt-get install -y libzip-dev unzip && docker-php-ext-install zip
-
-COPY . /var/www/html/
-WORKDIR /var/www/html/
+COPY ./ ./
 EXPOSE 80
