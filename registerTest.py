@@ -6,7 +6,7 @@ import time
 options = webdriver.ChromeOptions()
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
-options.add_argument('--user-data-dir=/tmp/chrome_data')  # Unique directory
+options.add_argument('--headless')
 
 driver = webdriver.Chrome(options=options)
 
