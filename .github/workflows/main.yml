@@ -38,7 +38,7 @@ jobs:
 
     - name: ls debug
       run : |
-        ls
+        ls /var/www/html/
 
     - name: Install dependencies
       run: |
