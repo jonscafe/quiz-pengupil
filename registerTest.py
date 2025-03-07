@@ -15,6 +15,7 @@ base_url = "http://localhost/quiz-pengupil/register.php"
 # Test Case 1: Successful Registration
 def test_successful_registration():
     driver.get(base_url)
+    time.sleep(2)  # Wait for the page to load
     driver.find_element(By.ID, "name").send_keys("Test User")
     driver.find_element(By.ID, "username").send_keys("testuser")
     driver.find_element(By.ID, "InputEmail").send_keys("testuser@example.com")
@@ -27,6 +28,7 @@ def test_successful_registration():
 # Test Case 2: Empty Fields
 def test_empty_fields():
     driver.get(base_url)
+    time.sleep(2)  # Wait for the page to load
     driver.find_element(By.NAME, "submit").click()
     time.sleep(2)
     error_message = driver.find_element(By.CLASS_NAME, "alert-danger").text
@@ -35,6 +37,7 @@ def test_empty_fields():
 # Test Case 3: Passwords Do Not Match
 def test_passwords_do_not_match():
     driver.get(base_url)
+    time.sleep(2)  # Wait for the page to load
     driver.find_element(By.ID, "name").send_keys("Test User")
     driver.find_element(By.ID, "username").send_keys("testuser")
     driver.find_element(By.ID, "InputEmail").send_keys("testuser@example.com")
@@ -48,6 +51,7 @@ def test_passwords_do_not_match():
 # Test Case 4: Username Already Exists
 def test_username_already_exists():
     driver.get(base_url)
+    time.sleep(2)  # Wait for the page to load
     driver.find_element(By.ID, "name").send_keys("Test User")
     driver.find_element(By.ID, "username").send_keys("existinguser")
     driver.find_element(By.ID, "InputEmail").send_keys("testuser@example.com")
@@ -61,6 +65,7 @@ def test_username_already_exists():
 # Test Case 5: Invalid Email Format
 def test_invalid_email_format():
     driver.get(base_url)
+    time.sleep(2)  # Wait for the page to load
     driver.find_element(By.ID, "name").send_keys("Test User")
     driver.find_element(By.ID, "username").send_keys("testuser")
     driver.find_element(By.ID, "InputEmail").send_keys("invalidemail")
