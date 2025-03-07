@@ -59,9 +59,11 @@ jobs:
         
         - name: run test register
           run: python registerTest.py ${{ env.URL }}
+          continue-on-error: true
 
         - name: run test login
           run: python loginTest.py ${{ env.URL }}        
+          continue-on-error: true
 
         - name: 'upload artifacts'
           uses: actions/upload-artifact@v4

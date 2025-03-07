@@ -26,7 +26,7 @@ if( isset($_POST['submit']) ){
                     $result   = mysqli_query($con, $query);
                     if ($result) {
                         $_SESSION['username'] = $username;                       
-                        header('Location: register.php');                    
+                        header('Location: index.php');                    
                     } else {
                         $error =  'Register User Gagal !!';
                     }
