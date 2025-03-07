@@ -3,10 +3,13 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import time
 
-# Initialize the WebDriver
-driver = webdriver.Chrome()
+options = webdriver.ChromeOptions()
+options.add_argument('--no-sandbox')
+options.add_argument('--disable-dev-shm-usage')
+options.add_argument('--user-data-dir=/tmp/chrome_data')  # Unique directory
 
-# Define the base URL
+driver = webdriver.Chrome(options=options)
+
 base_url = "http://localhost/quiz-pengupil/register.php"
 
 # Test Case 1: Successful Registration
