@@ -1,4 +1,3 @@
-# tes
 name: UAS Tests
 
 on: [push, pull_request]
@@ -26,17 +25,6 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
-    - name: Set up PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '7.4'
-
-    - name: Install dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y libzip-dev unzip
-        docker-php-ext-install mysqli zip
 
     - name: Build and run Docker Compose
       run: |
