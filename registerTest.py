@@ -14,9 +14,9 @@ class RegisterTestCase(unittest.TestCase):
         self.addCleanup(self.browser.quit)
 
         if len(sys.argv) > 1:
-            self.base_url = sys.argv[1] + "/quiz_pengupil/register.php"
+            self.base_url = sys.argv[1] + "/register.php"
         else:
-            self.base_url = "http://localhost/quiz_pengupil/register.php"
+            self.base_url = "http://localhost/register.php"
 
     def test_successful_registration(self):
         self.browser.get(self.base_url)
