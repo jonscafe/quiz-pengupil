@@ -3,8 +3,13 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import time
 
-# Initialize the WebDriver
-driver = webdriver.Chrome()
+options = webdriver.ChromeOptions()
+options.add_argument('--no-sandbox')
+options.add_argument('--disable-dev-shm-usage')
+driver = webdriver.Remote(
+    command_executor='http://selenium:4444/wd/hub',  # Selenium service as declared in your GitHub Actions
+    options=options
+)
 
 # Define the base URL
 base_url = "http://localhost/quiz-pengupil/register.php"
