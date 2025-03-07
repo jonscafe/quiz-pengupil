@@ -9,7 +9,7 @@ jobs:
     permissions: write-all
     runs-on: ubuntu-latest
     steps:
-        - name : Checkout the Repo
+        - name: Checkout the Repo
           uses: actions/checkout@v4
 
         - name: Create isolated network
@@ -30,7 +30,7 @@ jobs:
           run: curl ${{ env.URL }}
 
         - name: Selenium Preparation
-          run: docker run --network=isolated -d -p 4444:4444 -p 7900:7900 -v /dev/shm:/dev/shm --name firefox-standalone selenium/standalone-firefox:latest
+          run: docker run --network=isolated -d -p 4444:4444 -p 7900:7900 -v /dev/shm:/dev/shm --name selenium selenium/standalone-chrome:latest
 
         - name: db setup
           run: docker run --network=isolated --name quiz-db -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=quiz_pengupil -v ${{ github.workspace }}/db:/docker-entrypoint-initdb.d -d mysql:5.7
