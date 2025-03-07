@@ -6,9 +6,8 @@ import time
 options = webdriver.ChromeOptions()
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
-
 driver = webdriver.Remote(
-    command_executor='http://selenium:4444/wd/hub',  # Matches the service name
+    command_executor='http://localhost:4444/wd/hub',
     options=options
 )
 

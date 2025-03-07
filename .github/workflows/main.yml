@@ -4,14 +4,11 @@ on: [push, pull_request]
 
 jobs:
   test:
+    name: UAS Test
     runs-on: ubuntu-latest
+    permissions: write-all
 
     services:
-      selenium:
-        image: selenium/standalone-chrome
-        ports:
-          - 4444:4444
-
       mysql:
         image: mysql:5.7
         ports:
@@ -31,6 +28,9 @@ jobs:
     
     - name: Create isolated network
       run: docker network create --driver bridge isolated
+
+    - name: Selenium Preparation
+      run: docker run --network=isolated -d -p 4444:4444 -p 7900:7900 -v /dev/shm:/dev/shm --name firefox-standalone selenium/standalone-firefox:latest
 
     - name: Build Docker image
       run: |
