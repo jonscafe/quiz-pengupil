@@ -1,59 +1,57 @@
-name: UAS Tests
-
-on: [push, pull_request]
-
+name: Pengupil Testing
+on:
+  push:
+    branches:
+      - main
 jobs:
   test:
-    name: UAS Test
-    runs-on: ubuntu-latest
+    name: Functional Test
     permissions: write-all
-
-    services:
-      mysql:
-        image: mysql:5.7
-        ports:
-          - 3306:3306
-        env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: quiz_pengupil
-          MYSQL_USER: user
-          MYSQL_PASSWORD: password
-
+    runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+        - name : Checkout the Repo
+          uses: actions/checkout@v4
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
-    
-    - name: Create isolated network
-      run: docker network create --driver bridge isolated
+        - name: Create isolated network
+          run: docker network create --driver bridge isolated
 
-    - name: Selenium Preparation
-      run: docker run --network=isolated -d -p 4444:4444 -p 7900:7900 -v /dev/shm:/dev/shm --name firefox-standalone selenium/standalone-firefox:latest
+        - name: Deploy AUT
+          run: docker build -t quiz-pengupil .
 
-    - name: Build Docker image
-      run: |
-        docker build -t quiz-pengupil .
+        - name: Run AUT
+          run: docker run --network=isolated -p 80:80 --name docker-apache -t -d quiz-pengupil:latest
 
-    - name: Run Docker container
-      run: |
-        docker run -d -p 80:80 --name quiz-pengupil quiz-pengupil
-        sleep 30
+        - name: Get AUT URL
+          run: |
+            URL=http://$(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1)
+            echo "URL=$URL" >> $GITHUB_ENV
 
-    - name: Install dependencies
-      run: |
-        pip install selenium
+        - name: Check AUT URL
+          run: curl ${{ env.URL }}
 
-    - name: Run Register Tests
-      run: |
-        python registerTest.py
+        - name: Selenium Preparation
+          run: docker run --network=isolated -d -p 4444:4444 -p 7900:7900 -v /dev/shm:/dev/shm --name firefox-standalone selenium/standalone-firefox:latest
 
-    - name: Run Login Tests
-      run: |
-        python loginTest.py
+        - name: wait for selenium hub
+          run: sh wait.sh
+        
+        - name: check hub
+          run: curl http://localhost:4444/ui
 
-    - name: Stop and remove Docker container
-      run: |
-        docker stop quiz-pengupil
-        docker rm quiz-pengupil
+        - name: install selenium
+          run: pip install selenium
+        
+        - name: run test register
+          run: python registerTest.py ${{ env.URL }}
+
+        - name: run test login
+          run: python loginTest.py ${{ env.URL }}        
+
+        - name: 'upload artifacts'
+          uses: actions/upload-artifact@v4
+          with:
+            name: Screenshot
+            path: screenshot.png
+
+        - name: stop docker
+          run: docker stop docker-apache

@@ -11,7 +11,7 @@ driver = webdriver.Remote(
     options=options
 )
 
-base_url = "http://localhost/quiz-pengupil/register.php"
+base_url = "http://localhost/register.php"
 
 # Test Case 1: Successful Registration
 def test_successful_registration():
