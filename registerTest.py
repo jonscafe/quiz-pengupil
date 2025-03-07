@@ -7,7 +7,7 @@ import time
 driver = webdriver.Chrome()
 
 # Define the base URL
-base_url = "http://localhost:4444/quiz-pengupil/register.php"
+base_url = "http://localhost/quiz-pengupil/register.php"
 
 # Test Case 1: Successful Registration
 def test_successful_registration():

@@ -11,7 +11,7 @@ class LoginTest(unittest.TestCase):
 
     def test_successful_login(self):
         driver = self.driver
-        driver.get("http://localhost:4444/quiz-pengupil/login.php")
+        driver.get("http://localhost/quiz-pengupil/login.php")
         driver.find_element(By.ID, "username").send_keys("valid_username")
         driver.find_element(By.ID, "InputPassword").send_keys("valid_password")
         driver.find_element(By.NAME, "submit").click()
@@ -19,14 +19,14 @@ class LoginTest(unittest.TestCase):
 
     def test_empty_username_password(self):
         driver = self.driver
-        driver.get("http://localhost:4444/quiz-pengupil/login.php")
+        driver.get("http://localhost/quiz-pengupil/login.php")
         driver.find_element(By.NAME, "submit").click()
         error_message = driver.find_element(By.CLASS_NAME, "alert-danger").text
         self.assertEqual(error_message, "Data tidak boleh kosong !!")
 
     def test_invalid_username(self):
         driver = self.driver
-        driver.get("http://localhost:4444/quiz-pengupil/login.php")
+        driver.get("http://localhost/quiz-pengupil/login.php")
         driver.find_element(By.ID, "username").send_keys("invalid_username")
         driver.find_element(By.ID, "InputPassword").send_keys("any_password")
         driver.find_element(By.NAME, "submit").click()
@@ -35,7 +35,7 @@ class LoginTest(unittest.TestCase):
 
     def test_invalid_password(self):
         driver = self.driver
-        driver.get("http://localhost:4444/quiz-pengupil/login.php")
+        driver.get("http://localhost/quiz-pengupil/login.php")
         driver.find_element(By.ID, "username").send_keys("valid_username")
         driver.find_element(By.ID, "InputPassword").send_keys("invalid_password")
         driver.find_element(By.NAME, "submit").click()
