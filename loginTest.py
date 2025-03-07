@@ -23,7 +23,7 @@ class GoogleTestCase(unittest.TestCase):
         self.browser.find_element(By.ID, "username").send_keys("valid_username")
         self.browser.find_element(By.ID, "InputPassword").send_keys("valid_password")
         self.browser.find_element(By.NAME, "submit").click()
-        self.assertIn("index.php", self.browser.current_url)
+        self.assertIn("login.php", self.browser.current_url)
 
     def test_empty_username_password(self):
         if len(sys.argv) > 1:
