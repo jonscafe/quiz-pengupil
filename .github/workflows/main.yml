@@ -7,11 +7,6 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      selenium:
-        image: selenium/standalone-chrome
-        ports:
-          - 4444:4444
-
       mysql:
         image: mysql:5.7
         ports:
