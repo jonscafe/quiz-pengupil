@@ -26,15 +26,27 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Build and run Docker Compose
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Build Docker image
       run: |
-        docker-compose up -d --build
+        docker build -t quiz-pengupil .
+
+    - name: Run Docker container
+      run: |
+        docker run -d -p 80:80 --name quiz-pengupil quiz-pengupil
         sleep 30 # Wait for the services to be fully up
 
     - name: Run Register Tests
       run: |
-        docker-compose run web python registerTest.py
+        docker exec quiz-pengupil python registerTest.py
 
     - name: Run Login Tests
       run: |
-        docker-compose run web python loginTest.py
+        docker exec quiz-pengupil python loginTest.py
+
+    - name: Stop and remove Docker container
+      run: |
+        docker stop quiz-pengupil
+        docker rm quiz-pengupil
