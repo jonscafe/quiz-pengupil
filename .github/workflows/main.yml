@@ -1,1 +1,52 @@
 # tes
+name: UAS Tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      selenium:
+        image: selenium/standalone-chrome
+        ports:
+          - 4444:4444
+
+      mysql:
+        image: mysql:5.7
+        ports:
+          - 3306:3306
+        environment:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: quiz_pengupil
+          MYSQL_USER: user
+          MYSQL_PASSWORD: password
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4'
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libzip-dev unzip
+        docker-php-ext-install mysqli zip
+
+    - name: Build and run Docker Compose
+      run: |
+        docker-compose up -d --build
+        sleep 30 # Wait for the services to be fully up
+
+    - name: Run Register Tests
+      run: |
+        docker-compose run web python registerTest.py
+
+    - name: Run Login Tests
+      run: |
+        docker-compose run web python loginTest.py
