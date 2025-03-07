@@ -10,7 +10,7 @@ options.add_argument('--headless')
 
 driver = webdriver.Chrome(options=options)
 
-base_url = "http://localhost/quiz-pengupil/register.php"
+base_url = "http://localhost/register.php"
 
 # Test Case 1: Successful Registration
 def test_successful_registration():
@@ -77,6 +77,8 @@ def test_invalid_email_format():
     assert "Invalid email format" in error_message  # Assuming this error message is implemented
 
 # Run the test cases
+driver.get(base_url)
+print(driver.page_source)
 test_successful_registration()
 test_empty_fields()
 test_passwords_do_not_match()
