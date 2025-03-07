@@ -15,7 +15,7 @@ class GoogleTestCase(unittest.TestCase):
     def test_successful_login(self):
         # If a URL was passed via command line, use it; otherwise default
         if len(sys.argv) > 1:
-            url = sys.argv[1] + "login.php"
+            url = sys.argv[1] + "/login.php"
         else:
             url = "http://localhost/login.php"
 
