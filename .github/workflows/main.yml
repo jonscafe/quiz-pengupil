@@ -38,13 +38,17 @@ jobs:
         docker run -d -p 80:80 --name quiz-pengupil quiz-pengupil
         sleep 30 # Wait for the services to be fully up
 
+    - name: Install dependencies
+      run: |
+        pip install selenium
+
     - name: Run Register Tests
       run: |
-        docker exec quiz-pengupil python registerTest.py
+        python registerTest.py
 
     - name: Run Login Tests
       run: |
-        docker exec quiz-pengupil python loginTest.py
+        python loginTest.py
 
     - name: Stop and remove Docker container
       run: |
