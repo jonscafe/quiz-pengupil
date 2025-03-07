@@ -1,3 +1,4 @@
+# filepath: /workspaces/quiz-pengupil/registerTest.py
 import unittest, sys, time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -7,13 +8,13 @@ class RegisterTestCase(unittest.TestCase):
         options = webdriver.FirefoxOptions()
         options.add_argument('--ignore-certificate-errors')
         options.add_argument('--ignore-ssl-errors')
-        server = 'http://localhost:4444'
+        server = 'http://localhost:4444'  # Adjust if needed, e.g. ...:4444/wd/hub
 
         self.browser = webdriver.Remote(command_executor=server, options=options)
         self.addCleanup(self.browser.quit)
 
         if len(sys.argv) > 1:
-            self.base_url = sys.argv[1]/"register.php"
+            self.base_url = sys.argv[1] + "/register.php"
         else:
             self.base_url = "http://localhost/register.php"
 

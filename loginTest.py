@@ -27,7 +27,7 @@ class GoogleTestCase(unittest.TestCase):
 
     def test_empty_username_password(self):
         if len(sys.argv) > 1:
-            url = sys.argv[1]/"login.php"
+            url = sys.argv[1] + "/login.php"
         else:
             url = "http://localhost/login.php"
 
@@ -38,7 +38,7 @@ class GoogleTestCase(unittest.TestCase):
 
     def test_invalid_username(self):
         if len(sys.argv) > 1:
-            url = sys.argv[1]/"login.php"
+            url = sys.argv[1] + "/login.php"
         else:
             url = "http://localhost/login.php"
 
@@ -51,7 +51,7 @@ class GoogleTestCase(unittest.TestCase):
 
     def test_invalid_password(self):
         if len(sys.argv) > 1:
-            url = sys.argv[1]/"login.php"
+            url = sys.argv[1] + "/login.php"
         else:
             url = "http://localhost/login.php"
 
