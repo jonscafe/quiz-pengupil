@@ -1,6 +1,6 @@
 <?php
     $host     = 'quiz-db';
-    $user     = 'user'; 
+    $user     = 'root'; 
     $password = 'password';                  
     $db       = 'quiz_pengupil';
 
