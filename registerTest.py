@@ -19,8 +19,8 @@ class RegisterTestCase(unittest.TestCase):
 
     def test_successful_registration(self):
         self.browser.get(self.base_url)
-        print("DEBUG Page Source (test_successful_registration):")
-        print(self.browser.page_source)
+        # print("DEBUG Page Source (test_successful_registration):")
+        # print(self.browser.page_source)
         time.sleep(2)
         self.browser.find_element(By.ID, "name").send_keys("Test User")
         self.browser.find_element(By.ID, "username").send_keys("testuser")
@@ -29,26 +29,26 @@ class RegisterTestCase(unittest.TestCase):
         self.browser.find_element(By.ID, "InputRePassword").send_keys("password123")
         self.browser.find_element(By.NAME, "submit").click()
         time.sleep(2)
-        print("DEBUG Page Source after submission (test_successful_registration):")
-        print(self.browser.page_source)
+        # print("DEBUG Page Source after submission (test_successful_registration):")
+        # print(self.browser.page_source)
         self.assertIn("index.php", self.browser.current_url)
 
     def test_empty_fields(self):
         self.browser.get(self.base_url)
-        print("DEBUG Page Source (test_empty_fields):")
-        print(self.browser.page_source)
+        # print("DEBUG Page Source (test_empty_fields):")
+        # print(self.browser.page_source)
         time.sleep(2)
         self.browser.find_element(By.NAME, "submit").click()
         time.sleep(2)
-        print("DEBUG Page Source after submission (test_empty_fields):")
-        print(self.browser.page_source)
+        # print("DEBUG Page Source after submission (test_empty_fields):")
+        # print(self.browser.page_source)
         error_message = self.browser.find_element(By.CLASS_NAME, "alert-danger").text
         self.assertIn("Data tidak boleh kosong !!", error_message)
 
     def test_passwords_do_not_match(self):
         self.browser.get(self.base_url)
-        print("DEBUG Page Source (test_passwords_do_not_match):")
-        print(self.browser.page_source)
+        # print("DEBUG Page Source (test_passwords_do_not_match):")
+        # print(self.browser.page_source)
         time.sleep(2)
         self.browser.find_element(By.ID, "name").send_keys("Test User")
         self.browser.find_element(By.ID, "username").send_keys("testuser")
@@ -57,15 +57,15 @@ class RegisterTestCase(unittest.TestCase):
         self.browser.find_element(By.ID, "InputRePassword").send_keys("password456")
         self.browser.find_element(By.NAME, "submit").click()
         time.sleep(2)
-        print("DEBUG Page Source after submission (test_passwords_do_not_match):")
-        print(self.browser.page_source)
+        # print("DEBUG Page Source after submission (test_passwords_do_not_match):")
+        # print(self.browser.page_source)
         error_message = self.browser.find_element(By.CLASS_NAME, "text-danger").text
         self.assertIn("Password tidak sama !!", error_message)
 
     def test_username_already_exists(self):
         self.browser.get(self.base_url)
-        print("DEBUG Page Source (test_username_already_exists):")
-        print(self.browser.page_source)
+        # print("DEBUG Page Source (test_username_already_exists):")
+        # print(self.browser.page_source)
         time.sleep(2)
         self.browser.find_element(By.ID, "name").send_keys("Test User")
         self.browser.find_element(By.ID, "username").send_keys("existinguser")
@@ -74,15 +74,15 @@ class RegisterTestCase(unittest.TestCase):
         self.browser.find_element(By.ID, "InputRePassword").send_keys("password123")
         self.browser.find_element(By.NAME, "submit").click()
         time.sleep(2)
-        print("DEBUG Page Source after submission (test_username_already_exists):")
-        print(self.browser.page_source)
+        # print("DEBUG Page Source after submission (test_username_already_exists):")
+        # print(self.browser.page_source)
         error_message = self.browser.find_element(By.CLASS_NAME, "alert-danger").text
         self.assertIn("Username sudah terdaftar !!", error_message)
 
     def test_invalid_email_format(self):
         self.browser.get(self.base_url)
-        print("DEBUG Page Source (test_invalid_email_format):")
-        print(self.browser.page_source)
+        # print("DEBUG Page Source (test_invalid_email_format):")
+        # print(self.browser.page_source)
         time.sleep(2)
         self.browser.find_element(By.ID, "name").send_keys("Test User")
         self.browser.find_element(By.ID, "username").send_keys("testuser")
@@ -91,8 +91,8 @@ class RegisterTestCase(unittest.TestCase):
         self.browser.find_element(By.ID, "InputRePassword").send_keys("password123")
         self.browser.find_element(By.NAME, "submit").click()
         time.sleep(2)
-        print("DEBUG Page Source after submission (test_invalid_email_format):")
-        print(self.browser.page_source)
+        # print("DEBUG Page Source after submission (test_invalid_email_format):")
+        # print(self.browser.page_source)
         error_message = self.browser.find_element(By.CLASS_NAME, "alert-danger").text
         self.assertIn("Invalid email format", error_message)
 
