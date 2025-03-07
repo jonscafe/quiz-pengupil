@@ -36,6 +36,10 @@ jobs:
         docker run --network=isolated -d -p 80:80 --name quiz-pengupil quiz-pengupil
         sleep 30
 
+    - name: ls debug
+      run : |
+        ls
+
     - name: Install dependencies
       run: |
         pip install selenium
