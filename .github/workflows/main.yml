@@ -48,10 +48,10 @@ jobs:
           run: curl http://localhost:4444/ui
 
         - name: ls debug "/var/www/html"
-          run: ls /var/www/html
+          run: docker exec docker-apache ls /var/www/html
 
         - name: ls debug "/"
-          run: ls /
+          run: docker exec docker-apache ls /
 
 
         - name: install selenium
