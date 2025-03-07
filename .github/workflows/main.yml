@@ -35,8 +35,8 @@ jobs:
 
     - name: Run Docker container
       run: |
-        docker run -d -p 80:80 --name quiz-pengupil quiz-pengupil
-        sleep 30 # Wait for the services to be fully up
+        docker run --network=isolated -d -p 80:80 --name quiz-pengupil quiz-pengupil
+        sleep 30
 
     - name: Install dependencies
       run: |
