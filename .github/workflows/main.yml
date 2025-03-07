@@ -33,10 +33,13 @@ jobs:
           run: docker run --network=isolated -d -p 4444:4444 -p 7900:7900 -v /dev/shm:/dev/shm --name firefox-standalone selenium/standalone-firefox:latest
 
         - name: db setup
-          run: docker run --network=isolated --name quiz-db -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=quiz_pengupil -d mysql:5.7
+          run: docker run --network=isolated --name quiz-db -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=quiz_pengupil -v ${{ github.workspace }}/db:/docker-entrypoint-initdb.d -d mysql:5.7
+
+        - name: db wait
+          run: sleep 30
 
         - name: db exec
-          run: docker exec quiz-db mysql -h localhost -uroot -ppassword quiz_pengupil < /var/www/html/db/quiz_pengupil.sql
+          run: docker exec quiz-db mysql -h localhost -uroot -ppassword quiz_pengupil < /docker-entrypoint-initdb.d/quiz_pengupil.sql
           
         - name: wait for selenium hub
           run: sh wait.sh
