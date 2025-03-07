@@ -19,7 +19,7 @@ class RegisterTestCase(unittest.TestCase):
 
     def test_successful_registration(self):
         self.browser.get(self.base_url)
-        print(self.browser.get(self.base_url))
+        print(self.browser.page_source)
         time.sleep(2)
         self.browser.find_element(By.ID, "name").send_keys("Test User")
         self.browser.find_element(By.ID, "username").send_keys("testuser")
@@ -32,6 +32,7 @@ class RegisterTestCase(unittest.TestCase):
 
     def test_empty_fields(self):
         self.browser.get(self.base_url)
+        print(self.browser.page_source)
         time.sleep(2)
         self.browser.find_element(By.NAME, "submit").click()
         time.sleep(2)
@@ -40,6 +41,7 @@ class RegisterTestCase(unittest.TestCase):
 
     def test_passwords_do_not_match(self):
         self.browser.get(self.base_url)
+        print(self.browser.page_source)
         time.sleep(2)
         self.browser.find_element(By.ID, "name").send_keys("Test User")
         self.browser.find_element(By.ID, "username").send_keys("testuser")
@@ -53,6 +55,7 @@ class RegisterTestCase(unittest.TestCase):
 
     def test_username_already_exists(self):
         self.browser.get(self.base_url)
+        print(self.browser.page_source)
         time.sleep(2)
         self.browser.find_element(By.ID, "name").send_keys("Test User")
         self.browser.find_element(By.ID, "username").send_keys("existinguser")
@@ -66,6 +69,7 @@ class RegisterTestCase(unittest.TestCase):
 
     def test_invalid_email_format(self):
         self.browser.get(self.base_url)
+        print(self.browser.page_source)
         time.sleep(2)
         self.browser.find_element(By.ID, "name").send_keys("Test User")
         self.browser.find_element(By.ID, "username").send_keys("testuser")
