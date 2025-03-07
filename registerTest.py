@@ -13,7 +13,7 @@ class RegisterTestCase(unittest.TestCase):
         self.addCleanup(self.browser.quit)
 
         if len(sys.argv) > 1:
-            self.base_url = sys.argv[1]
+            self.base_url = sys.argv[1]/"register.php"
         else:
             self.base_url = "http://localhost/register.php"
 
