@@ -1,4 +1,3 @@
-# filepath: /workspaces/quiz-pengupil/registerTest.py
 import unittest, sys, time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -20,6 +19,7 @@ class RegisterTestCase(unittest.TestCase):
 
     def test_successful_registration(self):
         self.browser.get(self.base_url)
+        print("DEBUG Page Source (test_successful_registration):")
         print(self.browser.page_source)
         time.sleep(2)
         self.browser.find_element(By.ID, "name").send_keys("Test User")
@@ -33,6 +33,7 @@ class RegisterTestCase(unittest.TestCase):
 
     def test_empty_fields(self):
         self.browser.get(self.base_url)
+        print("DEBUG Page Source (test_empty_fields):")
         print(self.browser.page_source)
         time.sleep(2)
         self.browser.find_element(By.NAME, "submit").click()
@@ -42,6 +43,7 @@ class RegisterTestCase(unittest.TestCase):
 
     def test_passwords_do_not_match(self):
         self.browser.get(self.base_url)
+        print("DEBUG Page Source (test_passwords_do_not_match):")
         print(self.browser.page_source)
         time.sleep(2)
         self.browser.find_element(By.ID, "name").send_keys("Test User")
@@ -56,6 +58,7 @@ class RegisterTestCase(unittest.TestCase):
 
     def test_username_already_exists(self):
         self.browser.get(self.base_url)
+        print("DEBUG Page Source (test_username_already_exists):")
         print(self.browser.page_source)
         time.sleep(2)
         self.browser.find_element(By.ID, "name").send_keys("Test User")
@@ -70,6 +73,7 @@ class RegisterTestCase(unittest.TestCase):
 
     def test_invalid_email_format(self):
         self.browser.get(self.base_url)
+        print("DEBUG Page Source (test_invalid_email_format):")
         print(self.browser.page_source)
         time.sleep(2)
         self.browser.find_element(By.ID, "name").send_keys("Test User")
