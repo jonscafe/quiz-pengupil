@@ -19,7 +19,7 @@ class RegisterTestCase(unittest.TestCase):
 
     def test_successful_registration(self):
         self.browser.get(self.base_url)
-        print(self.page_source)
+        print(self.browser.get(self.base_url))
         time.sleep(2)
         self.browser.find_element(By.ID, "name").send_keys("Test User")
         self.browser.find_element(By.ID, "username").send_keys("testuser")
