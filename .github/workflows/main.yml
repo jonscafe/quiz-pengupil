@@ -47,6 +47,13 @@ jobs:
         - name: check hub
           run: curl http://localhost:4444/ui
 
+        - name: ls debug "/var/www/html"
+          run: ls /var/www/html
+
+        - name: ls debug "/"
+          run: ls /
+
+
         - name: install selenium
           run: pip install selenium
         
