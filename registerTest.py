@@ -6,11 +6,13 @@ import time
 options = webdriver.ChromeOptions()
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
-options.add_argument('--headless')
 
-driver = webdriver.Chrome(options=options)
+driver = webdriver.Remote(
+    command_executor='http://selenium:4444/wd/hub',  # Matches the service name
+    options=options
+)
 
-base_url = "http://localhost/register.php"
+base_url = "http://localhost/quiz-pengupil/register.php"
 
 # Test Case 1: Successful Registration
 def test_successful_registration():
