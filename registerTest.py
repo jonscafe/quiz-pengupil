@@ -29,6 +29,8 @@ class RegisterTestCase(unittest.TestCase):
         self.browser.find_element(By.ID, "InputRePassword").send_keys("password123")
         self.browser.find_element(By.NAME, "submit").click()
         time.sleep(2)
+        print("DEBUG Page Source after submission (test_successful_registration):")
+        print(self.browser.page_source)
         self.assertIn("index.php", self.browser.current_url)
 
     def test_empty_fields(self):
@@ -38,6 +40,8 @@ class RegisterTestCase(unittest.TestCase):
         time.sleep(2)
         self.browser.find_element(By.NAME, "submit").click()
         time.sleep(2)
+        print("DEBUG Page Source after submission (test_empty_fields):")
+        print(self.browser.page_source)
         error_message = self.browser.find_element(By.CLASS_NAME, "alert-danger").text
         self.assertIn("Data tidak boleh kosong !!", error_message)
 
@@ -53,6 +57,8 @@ class RegisterTestCase(unittest.TestCase):
         self.browser.find_element(By.ID, "InputRePassword").send_keys("password456")
         self.browser.find_element(By.NAME, "submit").click()
         time.sleep(2)
+        print("DEBUG Page Source after submission (test_passwords_do_not_match):")
+        print(self.browser.page_source)
         error_message = self.browser.find_element(By.CLASS_NAME, "text-danger").text
         self.assertIn("Password tidak sama !!", error_message)
 
@@ -68,6 +74,8 @@ class RegisterTestCase(unittest.TestCase):
         self.browser.find_element(By.ID, "InputRePassword").send_keys("password123")
         self.browser.find_element(By.NAME, "submit").click()
         time.sleep(2)
+        print("DEBUG Page Source after submission (test_username_already_exists):")
+        print(self.browser.page_source)
         error_message = self.browser.find_element(By.CLASS_NAME, "alert-danger").text
         self.assertIn("Username sudah terdaftar !!", error_message)
 
@@ -83,6 +91,8 @@ class RegisterTestCase(unittest.TestCase):
         self.browser.find_element(By.ID, "InputRePassword").send_keys("password123")
         self.browser.find_element(By.NAME, "submit").click()
         time.sleep(2)
+        print("DEBUG Page Source after submission (test_invalid_email_format):")
+        print(self.browser.page_source)
         error_message = self.browser.find_element(By.CLASS_NAME, "alert-danger").text
         self.assertIn("Invalid email format", error_message)
 
