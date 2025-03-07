@@ -1,5 +1,5 @@
 <?php
-    $host     = 'localhost';
+    $host     = 'quiz-db';
     $user     = 'user'; 
     $password = 'password';                  
     $db       = 'quiz_pengupil';
